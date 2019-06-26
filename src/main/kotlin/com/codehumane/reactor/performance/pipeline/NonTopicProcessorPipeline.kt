@@ -27,6 +27,7 @@ class NonTopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegist
     private val step2ThreadCoreSize = 32
     private val finalItemThreadCoreSize = 4
     private val topicSubscriberCount = 16
+    private val processor = Processor()
 
     private val itemGenerator = StartItemGenerator()
     private val step1Generator = Step1ItemGenerator()
@@ -52,15 +53,13 @@ class NonTopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegist
 
         startTpsCollector()
 
-        val processor = Processor()
-
         // start item publish & intermediate transform
         val step2ItemSource = Flux
             .create<StartItem>({ startItemPublishAsynchronously(it, publishItemCount) }, BUFFER)
             .flatMapSequential<Step1Item>(this::generateStep1Item, step1ThreadCoreSize, 1)
-            .flatMapSequential<Step2Item>(this::generateStep2Item, step2ThreadCoreSize, 1)
+            .flatMapSequential<Step2Item>(this::generateStep2ItemAndPass2Processor, step2ThreadCoreSize, 1)
+            .flatMap<Step2Item>(this::pass2Processor, step2ThreadCoreSize, 1)
             .doOnError(this::terminateOnUnrecoverableError)
-            .doOnNext(processor::execute)
 
         // step2 item publish & final transform
         (0 until topicSubscriberCount).forEach { index ->
@@ -125,11 +124,19 @@ class NonTopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegist
         }.subscribeOn(step1Scheduler)
     }
 
-    private fun generateStep2Item(source: Step1Item): Mono<Step2Item> {
+    private fun generateStep2ItemAndPass2Processor(source: Step1Item): Mono<Step2Item> {
         return Mono.create<Step2Item> {
             step2MetricTimer.record {
-                it.success(step2Generator.withDelayMillis(source, 5))
+                val step2Item = step2Generator.withDelayMillis(source, 5)
+                processor.execute(step2Item)
+                it.success(step2Item)
             }
+        }.subscribeOn(step2Scheduler)
+    }
+
+    private fun pass2Processor(source: Step2Item): Mono<Step2Item> {
+        return Mono.create<Step2Item> {
+            it.success(processor.execute(source))
         }.subscribeOn(step2Scheduler)
     }
 
@@ -172,8 +179,9 @@ class NonTopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegist
             step2ItemListeners.add(step2ItemListener)
         }
 
-        fun execute(step2Item: Step2Item) {
+        fun execute(step2Item: Step2Item): Step2Item {
             step2ItemListeners.forEach { it.onReceive(step2Item) }
+            return step2Item
         }
     }
 
