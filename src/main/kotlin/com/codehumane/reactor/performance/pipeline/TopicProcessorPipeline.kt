@@ -48,14 +48,12 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     private val finalMetricTimers = (0 until topicSubscriberCount)
         .map { meterRegistry.timer("pipeline_final_$it") }
 
-    init {
-        startTpsCollector()
-    }
-
     /**
      * 파이프라인 실행 (구독)
      */
     fun start(publishItemCount: Int) {
+
+        startTpsCollector()
 
         // topic prepare
         val topicProcessor = TopicProcessor
