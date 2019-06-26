@@ -58,29 +58,29 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     fun start(publishItemCount: Int) {
 
         // topic prepare
-        val topicProcessor = TopicProcessor
-            .builder<Step2Item>()
-            .name("final-topic")
-            .bufferSize(2.toDouble().pow(13.toDouble()).toInt())
-            .waitStrategy(WaitStrategy.busySpin())
-            .build()
+//        val topicProcessor = TopicProcessor
+//            .builder<Step2Item>()
+//            .name("final-topic")
+//            .bufferSize(2.toDouble().pow(13.toDouble()).toInt())
+//            .waitStrategy(WaitStrategy.busySpin())
+//            .build()
 
         // topic publish & intermediate transform
         Flux.create<StartItem>({ startItemPublishAsynchronously(it, publishItemCount) }, BUFFER)
             .flatMapSequential<Step1Item>({ generateStep1Item(it) }, step1ThreadCoreSize, 1)
             .flatMapSequential<Step2Item>({ generateStep2Item(it) }, step2ThreadCoreSize, 1)
             .doOnError { terminateOnUnrecoverableError(it) }
-            .subscribe(topicProcessor)
-//            .subscribe()
+//            .subscribe(topicProcessor)
+            .subscribe()
 
         // topic subscription & final transform
-        (0 until topicSubscriberCount).forEach { index ->
-            Flux.from(topicProcessor)
-                .filter { (it.value % topicSubscriberCount) == index }
-                .flatMap({ generateFinalItem(it, index) }, finalItemThreadCoreSize, 1)
-                .doOnError { terminateOnUnrecoverableError(it) }
-                .subscribe()
-        }
+//        (0 until topicSubscriberCount).forEach { index ->
+//            Flux.from(topicProcessor)
+//                .filter { (it.value % topicSubscriberCount) == index }
+//                .flatMap({ generateFinalItem(it, index) }, finalItemThreadCoreSize, 1)
+//                .doOnError { terminateOnUnrecoverableError(it) }
+//                .subscribe()
+//        }
 
     }
 
