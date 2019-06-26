@@ -96,7 +96,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
 
             (0 until count).forEach { index ->
                 startMetricTimer.record {
-                    sink.next(itemGenerator.withDelay())
+                    sink.next(itemGenerator.withDelay(1_000))
                 }
 
                 if (index % 1000 == 0) {
