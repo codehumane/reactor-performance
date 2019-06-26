@@ -9,7 +9,7 @@ class StartItemGenerator {
     private val random = Random()
 
     fun withDelay(maxDelayInNanos: Int): StartItem {
-        Thread.sleep(0, random.nextInt(maxDelayInNanos))
+//        Thread.sleep(0, random.nextInt(maxDelayInNanos))
         return StartItem(id.getAndIncrement())
     }
 

@@ -24,8 +24,8 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
 
     private val log = LoggerFactory.getLogger(TopicProcessorPipeline::class.java)
 
-    private val step1ThreadCoreSize = 32
-    private val step2ThreadCoreSize = 32
+    private val step1ThreadCoreSize = 128
+    private val step2ThreadCoreSize = 128
     private val finalItemThreadCoreSize = 4
     private val topicSubscriberCount = 16
 
@@ -63,7 +63,8 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
             .flatMapSequential<Step1Item>({ generateStep1Item(it) }, step1ThreadCoreSize, 1)
             .flatMapSequential<Step2Item>({ generateStep2Item(it) }, step2ThreadCoreSize, 1)
             .doOnError { terminateOnUnrecoverableError(it) }
-            .subscribe(topicProcessor)
+//            .subscribe(topicProcessor)
+            .subscribe()
 
         // topic subscription & final transform
         (0 until topicSubscriberCount).forEach { index ->
@@ -111,7 +112,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     private fun generateStep1Item(source: StartItem): Mono<Step1Item> {
         return Mono.create<Step1Item> {
             step1MetricTimer.record {
-                it.success(step1Generator.withDelay(source))
+                it.success(step1Generator.withDelay(source, 10_000))
             }
         }.subscribeOn(step1Scheduler)
     }
@@ -119,7 +120,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     private fun generateStep2Item(source: Step1Item): Mono<Step2Item> {
         return Mono.create<Step2Item> {
             step2MetricTimer.record {
-                it.success(step2Generator.withDelay(source))
+                it.success(step2Generator.withDelay(source, 10_000))
             }
         }.subscribeOn(step2Scheduler)
     }
