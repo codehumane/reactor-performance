@@ -1,11 +1,15 @@
 
-### 파이프라인 실행
+### 파이프라인 실행 (topic o)
 
-GET http://localhost:8080/pipeline/start?count=100000
+GET http://localhost:8080/pipeline/topic/start?count=100000
+Accept: application/json
+
+
+
+### 파이프라인 실행 (topic x)
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
 Accept: application/json
 
 ###
-
-
-
 
