@@ -1,7 +1,7 @@
 
 ### 파이프라인 실행
 
-GET http://localhost:8080/pipeline/start?count=10000
+GET http://localhost:8080/pipeline/start?count=100000
 Accept: application/json
 
 ###

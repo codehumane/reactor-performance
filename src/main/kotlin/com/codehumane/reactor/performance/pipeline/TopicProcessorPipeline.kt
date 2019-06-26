@@ -13,7 +13,9 @@ import reactor.core.publisher.Mono
 import reactor.core.publisher.TopicProcessor
 import reactor.core.scheduler.Scheduler
 import reactor.core.scheduler.Schedulers
+import reactor.util.concurrent.WaitStrategy
 import java.util.concurrent.CompletableFuture
+import kotlin.math.pow
 import kotlin.system.exitProcess
 
 /**
@@ -24,8 +26,8 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
 
     private val log = LoggerFactory.getLogger(TopicProcessorPipeline::class.java)
 
-    private val step1ThreadCoreSize = 128
-    private val step2ThreadCoreSize = 128
+    private val step1ThreadCoreSize = 32
+    private val step2ThreadCoreSize = 32
     private val finalItemThreadCoreSize = 4
     private val topicSubscriberCount = 16
 
@@ -56,7 +58,12 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     fun start(publishItemCount: Int) {
 
         // topic prepare
-        val topicProcessor = TopicProcessor.create<Step2Item>("final-topic", topicSubscriberCount)
+        val topicProcessor = TopicProcessor
+            .builder<Step2Item>()
+            .name("final-topic")
+            .bufferSize(2.toDouble().pow(13.toDouble()).toInt())
+            .waitStrategy(WaitStrategy.busySpin())
+            .build()
 
         // topic publish & intermediate transform
         Flux.create<StartItem>({ startItemPublishAsynchronously(it, publishItemCount) }, BUFFER)
@@ -64,7 +71,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
             .flatMapSequential<Step2Item>({ generateStep2Item(it) }, step2ThreadCoreSize, 1)
             .doOnError { terminateOnUnrecoverableError(it) }
             .subscribe(topicProcessor)
-        
+
         // topic subscription & final transform
         (0 until topicSubscriberCount).forEach { index ->
             Flux.from(topicProcessor)
