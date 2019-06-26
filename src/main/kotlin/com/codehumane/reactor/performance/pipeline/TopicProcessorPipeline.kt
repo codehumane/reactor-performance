@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono
 import reactor.core.publisher.TopicProcessor
 import reactor.core.scheduler.Scheduler
 import reactor.core.scheduler.Schedulers
+import java.util.concurrent.CompletableFuture
 import kotlin.system.exitProcess
 
 /**
@@ -53,7 +54,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
         val topicProcessor = TopicProcessor.create<Step2Item>("final-topic", topicSubscriberCount)
 
         // topic publish & intermediate transform
-        Flux.create<StartItem>({ publishItems(it, publishItemCount) }, BUFFER)
+        Flux.create<StartItem>({ startItemPublishAsynchronously(it, publishItemCount) }, BUFFER)
             .flatMapSequential<Step1Item>({ generateStep1Item(it) }, step1ThreadCoreSize, 1)
             .flatMapSequential<Step2Item>({ generateStep2Item(it) }, step2ThreadCoreSize, 1)
             .doOnError { terminateOnUnrecoverableError(it) }
@@ -82,12 +83,21 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
         return Schedulers.fromExecutorService(executor.threadPoolExecutor)
     }
 
-    private fun publishItems(sink: FluxSink<StartItem>, count: Int) {
+    private fun startItemPublishAsynchronously(sink: FluxSink<StartItem>, count: Int) {
         log.info("play ground publishing source")
-        repeat((0 until count).count()) {
-            startMetricTimer.record {
-                sink.next(itemGenerator.withDelay())
+        CompletableFuture.runAsync {
+
+            (0 until count).forEach { index ->
+                startMetricTimer.record {
+                    sink.next(itemGenerator.withDelay())
+                }
+
+                if (index % 1000 == 0) {
+                    log.info("$index items published.")
+                }
             }
+
+            log.info("item publishing finished.")
         }
     }
 
