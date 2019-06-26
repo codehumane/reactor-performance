@@ -63,9 +63,8 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
             .flatMapSequential<Step1Item>({ generateStep1Item(it) }, step1ThreadCoreSize, 1)
             .flatMapSequential<Step2Item>({ generateStep2Item(it) }, step2ThreadCoreSize, 1)
             .doOnError { terminateOnUnrecoverableError(it) }
-//            .subscribe(topicProcessor)
-            .subscribe()
-
+            .subscribe(topicProcessor)
+        
         // topic subscription & final transform
         (0 until topicSubscriberCount).forEach { index ->
             Flux.from(topicProcessor)
