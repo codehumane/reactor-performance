@@ -1,15 +1,18 @@
 package com.codehumane.reactor.performance.item
 
-import java.util.*
+import org.slf4j.LoggerFactory
 import java.util.concurrent.atomic.AtomicInteger
 
 class StartItemGenerator {
 
+    private val log = LoggerFactory.getLogger(StartItemGenerator::class.java)
     private val id = AtomicInteger(0)
-    private val random = Random()
 
-    fun withDelay(maxDelayInNanos: Int): StartItem {
-//        Thread.sleep(0, random.nextInt(maxDelayInNanos))
+    fun withDelayCount(delayLoopCount: Int): StartItem {
+        (0 until delayLoopCount).forEach {
+            log.debug("generate delay count : $it")
+        }
+
         return StartItem(id.getAndIncrement())
     }
 

@@ -8,8 +8,8 @@ class Step1ItemGenerator {
     private val id = AtomicInteger(0)
     private val random = Random()
 
-    fun withDelay(source: StartItem, maxDelayInNanos: Int): Step1Item {
-        Thread.sleep(0, random.nextInt(maxDelayInNanos))
+    fun withDelayMillis(source: StartItem, maxDelayInMillis: Int): Step1Item {
+        Thread.sleep(random.nextInt(maxDelayInMillis).toLong())
         return Step1Item(source, id.getAndIncrement())
     }
 

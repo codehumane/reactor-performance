@@ -71,6 +71,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
             .flatMapSequential<Step2Item>({ generateStep2Item(it) }, step2ThreadCoreSize, 1)
             .doOnError { terminateOnUnrecoverableError(it) }
             .subscribe(topicProcessor)
+//            .subscribe()
 
         // topic subscription & final transform
         (0 until topicSubscriberCount).forEach { index ->
@@ -103,7 +104,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
 
             (0 until count).forEach { index ->
                 startMetricTimer.record {
-                    sink.next(itemGenerator.withDelay(1_000))
+                    sink.next(itemGenerator.withDelayCount(1_000))
                 }
 
                 if (index % 1000 == 0) {
@@ -118,7 +119,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     private fun generateStep1Item(source: StartItem): Mono<Step1Item> {
         return Mono.create<Step1Item> {
             step1MetricTimer.record {
-                it.success(step1Generator.withDelay(source, 10_000))
+                it.success(step1Generator.withDelayMillis(source, 1))
             }
         }.subscribeOn(step1Scheduler)
     }
@@ -126,7 +127,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     private fun generateStep2Item(source: Step1Item): Mono<Step2Item> {
         return Mono.create<Step2Item> {
             step2MetricTimer.record {
-                it.success(step2Generator.withDelay(source, 10_000))
+                it.success(step2Generator.withDelayMillis(source, 5))
             }
         }.subscribeOn(step2Scheduler)
     }
@@ -138,7 +139,7 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
 
         return Mono.create<FinalItem> {
             timer.record {
-                it.success(generator.withDelay(source))
+                it.success(generator.withDelayMillis(source, 10))
             }
         }.subscribeOn(scheduler)
     }
