@@ -1,6 +1,7 @@
 package com.codehumane.reactor.performance.pipeline
 
 import com.codehumane.reactor.performance.item.*
+import com.codehumane.reactor.performance.metric.TPSCollector
 import io.micrometer.prometheus.PrometheusMeterRegistry
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
@@ -28,22 +29,26 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     private val finalItemThreadCoreSize = 4
     private val topicSubscriberCount = 16
 
-    val itemGenerator = StartItemGenerator()
-    val step1Generator = Step1ItemGenerator()
-    val step2Generator = Step2ItemGenerator()
-    val finalGenerators = (0 until topicSubscriberCount)
+    private val itemGenerator = StartItemGenerator()
+    private val step1Generator = Step1ItemGenerator()
+    private val step2Generator = Step2ItemGenerator()
+    private val finalGenerators = (0 until topicSubscriberCount)
         .map { FinalItemGenerator(it.toString()) }
 
-    val step1Scheduler = scheduler(step1ThreadCoreSize, 32, "step1-")
-    val step2Scheduler = scheduler(step2ThreadCoreSize, 32, "step2-")
-    val finalSchedulers = (0 until topicSubscriberCount)
+    private val step1Scheduler = scheduler(step1ThreadCoreSize, 32, "step1-")
+    private val step2Scheduler = scheduler(step2ThreadCoreSize, 32, "step2-")
+    private val finalSchedulers = (0 until topicSubscriberCount)
         .map { scheduler(finalItemThreadCoreSize, 32, "final-$it-") }
 
-    val startMetricTimer = meterRegistry.timer("pipeline_start")
-    val step1MetricTimer = meterRegistry.timer("pipeline_step1")
-    val step2MetricTimer = meterRegistry.timer("pipeline_step2")
-    val finalMetricTimers = (0 until topicSubscriberCount)
+    private val startMetricTimer = meterRegistry.timer("pipeline_start")
+    private val step1MetricTimer = meterRegistry.timer("pipeline_step1")
+    private val step2MetricTimer = meterRegistry.timer("pipeline_step2")
+    private val finalMetricTimers = (0 until topicSubscriberCount)
         .map { meterRegistry.timer("pipeline_final_$it") }
+
+    init {
+        startTpsCollector()
+    }
 
     /**
      * 파이프라인 실행 (구독)
@@ -65,7 +70,6 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
             Flux.from(topicProcessor)
                 .filter { (it.value % topicSubscriberCount) == index }
                 .flatMap({ generateFinalItem(it, index) }, finalItemThreadCoreSize, 1)
-                .log()
                 .doOnError { terminateOnUnrecoverableError(it) }
                 .subscribe()
         }
@@ -73,14 +77,17 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
     }
 
     private fun scheduler(corePoolSize: Int, queueCapacity: Int, namePrefix: String): Scheduler {
-        val executor = ThreadPoolTaskExecutor().apply {
+        val executor = executor(corePoolSize, queueCapacity, namePrefix)
+        return Schedulers.fromExecutorService(executor.threadPoolExecutor)
+    }
+
+    private fun executor(corePoolSize: Int, queueCapacity: Int, namePrefix: String): ThreadPoolTaskExecutor {
+        return ThreadPoolTaskExecutor().apply {
             this.corePoolSize = corePoolSize
             setQueueCapacity(queueCapacity)
             setThreadNamePrefix(namePrefix)
             initialize()
         }
-
-        return Schedulers.fromExecutorService(executor.threadPoolExecutor)
     }
 
     private fun startItemPublishAsynchronously(sink: FluxSink<StartItem>, count: Int) {
@@ -129,13 +136,23 @@ class TopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry)
         }.subscribeOn(scheduler)
     }
 
-
-    /**
-     * 복구 불가능한 오류가 발생한 경우 시스템을 종료한다.
-     */
     private fun terminateOnUnrecoverableError(it: Throwable?) {
         log.error("unrecoverable error. system exit", it)
         exitProcess(666)
+    }
+
+    private fun startTpsCollector() {
+        val tpsCollectorSource = mutableMapOf(
+            "start" to startMetricTimer,
+            "step1" to step1MetricTimer,
+            "step2" to step2MetricTimer
+        )
+
+        finalMetricTimers.forEach {
+            tpsCollectorSource[it.id.name] = it
+        }
+
+        TPSCollector(10, tpsCollectorSource).start()
     }
 
 }
