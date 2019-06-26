@@ -11,5 +11,14 @@ Accept: application/json
 GET http://localhost:8080/pipeline/nontopic/start?count=100000
 Accept: application/json
 
+
+
+### 파이프라인 실행 (non fanout)
+
+GET http://localhost:8080/pipeline/nonfanout/start?count=1000000
+Accept: application/json
+
 ###
+
+
 
