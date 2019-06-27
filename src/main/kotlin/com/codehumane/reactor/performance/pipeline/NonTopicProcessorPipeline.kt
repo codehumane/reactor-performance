@@ -18,47 +18,49 @@ import kotlin.system.exitProcess
 /**
  * binary log event를 받아서 replicate item으로 변환하고 각 샤드 DB로 복제하는 일련의 파이프라인을 구성
  *
-<시작하고 두 20초 뒤>
-start tps: 10432.888888888889, detail: 9999, 9811, 10299, 10859, 10791, 10591, 10437, 10630, 10479
-step1 tps: 4062.6666666666665, detail: 4163, 3894, 4048, 4158, 4099, 4077, 4012, 4049, 4064
-step2 tps: 4062.8888888888887, detail: 4162, 3896, 4043, 4165, 4099, 4076, 4012, 4048, 4065
-pipeline_final_0 tps: 507.77777777777777, detail: 520, 487, 504, 520, 515, 508, 501, 504, 511
-pipeline_final_1 tps: 508.3333333333333, detail: 524, 486, 506, 520, 512, 509, 504, 503, 511
-pipeline_final_2 tps: 507.77777777777777, detail: 521, 488, 505, 518, 514, 508, 503, 507, 506
-pipeline_final_3 tps: 507.77777777777777, detail: 519, 486, 506, 520, 513, 509, 503, 505, 509
-pipeline_final_4 tps: 507.6666666666667, detail: 520, 485, 509, 516, 514, 509, 505, 503, 508
-pipeline_final_5 tps: 507.77777777777777, detail: 520, 486, 505, 520, 514, 508, 504, 506, 507
-pipeline_final_6 tps: 508.22222222222223, detail: 523, 485, 506, 518, 515, 508, 503, 506, 510
-pipeline_final_7 tps: 508.1111111111111, detail: 522, 486, 508, 519, 511, 511, 500, 507, 509
-pipeline_final_8 tps: 507.77777777777777, detail: 523, 485, 506, 521, 514, 509, 499, 507, 506
-pipeline_final_9 tps: 508.0, detail: 521, 487, 506, 519, 513, 509, 504, 505, 508
-pipeline_final_10 tps: 508.0, detail: 522, 485, 506, 520, 513, 509, 503, 503, 511
-pipeline_final_11 tps: 508.1111111111111, detail: 522, 486, 504, 523, 511, 509, 502, 504, 512
-pipeline_final_12 tps: 507.8888888888889, detail: 522, 486, 504, 521, 512, 510, 503, 504, 509
-pipeline_final_13 tps: 507.6666666666667, detail: 520, 487, 504, 522, 511, 508, 506, 503, 508
-pipeline_final_14 tps: 507.77777777777777, detail: 520, 488, 505, 521, 511, 510, 502, 505, 508
-pipeline_final_15 tps: 508.1111111111111, detail: 523, 486, 504, 522, 512, 509, 502, 504, 511
+ * - topic processor가 느리다고 판단하여 직접 (fan out) processor 작성한 버전
+ *
+<1,000,000건 실행 후, 시작하고 두 20초 뒤>
+start tps: 11728.0, detail: 11733, 11948, 11431, 11331, 11933, 11932, 11808, 11780, 11656
+step1 tps: 6770.444444444444, detail: 6655, 6998, 6754, 6952, 6661, 6790, 6486, 6711, 6927
+step2 tps: 6770.333333333333, detail: 6646, 7002, 6750, 6954, 6657, 6788, 6492, 6713, 6931
+pipeline_final_0 tps: 423.0, detail: 414, 438, 421, 435, 417, 425, 404, 421, 432
+pipeline_final_1 tps: 423.3333333333333, detail: 416, 439, 422, 433, 417, 424, 403, 422, 434
+pipeline_final_2 tps: 423.0, detail: 416, 437, 422, 434, 417, 424, 407, 418, 432
+pipeline_final_3 tps: 423.1111111111111, detail: 414, 438, 422, 434, 415, 425, 405, 423, 432
+pipeline_final_4 tps: 423.22222222222223, detail: 416, 437, 423, 434, 417, 425, 406, 419, 432
+pipeline_final_5 tps: 423.0, detail: 416, 435, 423, 436, 415, 424, 407, 417, 434
+pipeline_final_6 tps: 423.0, detail: 414, 437, 422, 435, 415, 425, 404, 424, 431
+pipeline_final_7 tps: 423.1111111111111, detail: 416, 437, 423, 433, 416, 424, 406, 423, 430
+pipeline_final_8 tps: 423.3333333333333, detail: 417, 437, 422, 434, 416, 424, 407, 419, 434
+pipeline_final_9 tps: 423.1111111111111, detail: 414, 438, 421, 435, 417, 423, 407, 418, 435
+pipeline_final_10 tps: 423.22222222222223, detail: 415, 438, 420, 435, 417, 425, 405, 420, 434
+pipeline_final_11 tps: 423.22222222222223, detail: 415, 437, 423, 435, 417, 423, 407, 419, 433
+pipeline_final_12 tps: 423.22222222222223, detail: 415, 438, 421, 436, 416, 423, 407, 421, 432
+pipeline_final_13 tps: 423.22222222222223, detail: 416, 435, 423, 436, 415, 427, 405, 420, 432
+pipeline_final_14 tps: 423.0, detail: 414, 438, 422, 435, 414, 424, 408, 419, 433
+pipeline_final_15 tps: 423.22222222222223, detail: 416, 438, 422, 434, 416, 425, 403, 422, 433
 
-<거의 끝날 무렵>
-start tps: 10062.444444444445, detail: 10222, 10202, 10232, 10156, 10056, 9027, 10199, 10199, 10269
-step1 tps: 3831.222222222222, detail: 3898, 3905, 3901, 3866, 3863, 3275, 3918, 3927, 3928
-step2 tps: 3830.8888888888887, detail: 3902, 3903, 3896, 3873, 3857, 3272, 3921, 3929, 3925
-pipeline_final_0 tps: 478.6666666666667, detail: 487, 487, 487, 486, 482, 409, 490, 490, 490
-pipeline_final_1 tps: 479.0, detail: 487, 488, 487, 485, 483, 407, 491, 490, 493
-pipeline_final_2 tps: 478.77777777777777, detail: 484, 491, 487, 484, 483, 409, 490, 491, 490
-pipeline_final_3 tps: 478.77777777777777, detail: 486, 489, 487, 484, 480, 412, 489, 491, 491
-pipeline_final_4 tps: 478.8888888888889, detail: 488, 488, 487, 483, 486, 407, 490, 492, 489
-pipeline_final_5 tps: 479.0, detail: 490, 489, 485, 484, 483, 409, 490, 490, 491
-pipeline_final_6 tps: 479.0, detail: 489, 488, 487, 484, 482, 409, 489, 493, 490
-pipeline_final_7 tps: 478.77777777777777, detail: 487, 491, 488, 483, 482, 408, 491, 491, 488
-pipeline_final_8 tps: 479.0, detail: 488, 488, 488, 483, 483, 409, 489, 494, 489
-pipeline_final_9 tps: 478.55555555555554, detail: 486, 487, 489, 482, 486, 405, 493, 489, 490
-pipeline_final_10 tps: 479.22222222222223, detail: 489, 487, 486, 487, 481, 409, 490, 491, 493
-pipeline_final_11 tps: 478.8888888888889, detail: 485, 487, 488, 485, 483, 408, 491, 491, 492
-pipeline_final_12 tps: 479.22222222222223, detail: 488, 487, 490, 483, 483, 409, 490, 489, 494
-pipeline_final_13 tps: 478.8888888888889, detail: 488, 488, 489, 481, 484, 410, 490, 491, 489
-pipeline_final_14 tps: 478.55555555555554, detail: 487, 488, 487, 482, 483, 410, 490, 490, 490
-pipeline_final_15 tps: 478.6666666666667, detail: 488, 486, 488, 485, 483, 405, 494, 491, 488
+<1,000,000건 실행 후, 거의 끝날 무렵>
+start tps: 9179.666666666666, detail: 9978, 8054, 10069, 9940, 10942, 9049, 10132, 8614, 5839
+step1 tps: 6187.111111111111, detail: 6531, 6509, 6271, 6645, 5979, 5672, 6300, 6364, 5413
+step2 tps: 6187.444444444444, detail: 6540, 6512, 6264, 6642, 5981, 5669, 6297, 6398, 5384
+pipeline_final_0 tps: 386.55555555555554, detail: 410, 408, 391, 415, 372, 355, 395, 400, 333
+pipeline_final_1 tps: 386.6666666666667, detail: 408, 409, 389, 417, 374, 354, 395, 399, 335
+pipeline_final_2 tps: 386.77777777777777, detail: 410, 405, 390, 418, 374, 353, 395, 400, 336
+pipeline_final_3 tps: 386.77777777777777, detail: 410, 407, 391, 415, 374, 354, 394, 401, 335
+pipeline_final_4 tps: 387.0, detail: 412, 407, 389, 417, 375, 352, 396, 399, 336
+pipeline_final_5 tps: 387.0, detail: 410, 407, 391, 416, 376, 352, 393, 402, 336
+pipeline_final_6 tps: 386.8888888888889, detail: 411, 408, 389, 417, 373, 354, 394, 401, 335
+pipeline_final_7 tps: 386.77777777777777, detail: 410, 407, 390, 417, 374, 355, 393, 401, 334
+pipeline_final_8 tps: 386.8888888888889, detail: 409, 407, 394, 414, 373, 353, 396, 400, 336
+pipeline_final_9 tps: 386.6666666666667, detail: 411, 405, 392, 415, 374, 355, 392, 401, 335
+pipeline_final_10 tps: 386.77777777777777, detail: 410, 406, 391, 416, 375, 354, 392, 402, 335
+pipeline_final_11 tps: 386.8888888888889, detail: 409, 409, 391, 416, 372, 355, 392, 403, 335
+pipeline_final_12 tps: 386.55555555555554, detail: 407, 409, 390, 414, 376, 353, 394, 401, 335
+pipeline_final_13 tps: 386.77777777777777, detail: 408, 409, 392, 415, 373, 355, 393, 402, 334
+pipeline_final_14 tps: 387.1111111111111, detail: 410, 408, 390, 416, 373, 355, 393, 401, 338
+pipeline_final_15 tps: 386.8888888888889, detail: 410, 408, 390, 417, 372, 354, 395, 401, 335
  */
 @Service
 class NonTopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry) {
@@ -100,7 +102,6 @@ class NonTopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegist
             .create<StartItem>({ startItemPublishAsynchronously(it, publishItemCount) }, BUFFER)
             .flatMapSequential<Step1Item>(this::generateStep1Item, step1ThreadCoreSize, 1)
             .flatMapSequential<Step2Item>(this::generateStep2ItemAndPass2Processor, step2ThreadCoreSize, 1)
-            .flatMap<Step2Item>(this::pass2Processor, step2ThreadCoreSize, 1)
             .doOnError(this::terminateOnUnrecoverableError)
 
         // step2 item publish & final transform
