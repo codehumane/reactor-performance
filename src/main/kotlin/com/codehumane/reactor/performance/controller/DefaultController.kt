@@ -1,9 +1,6 @@
 package com.codehumane.reactor.performance.controller
 
-import com.codehumane.reactor.performance.pipeline.NonFanOutPipeline
-import com.codehumane.reactor.performance.pipeline.NonTopicProcessorPipeline
-import com.codehumane.reactor.performance.pipeline.StepMinifiedNonTopicProcessorPipeline
-import com.codehumane.reactor.performance.pipeline.TopicProcessorPipeline
+import com.codehumane.reactor.performance.pipeline.*
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -15,6 +12,7 @@ class DefaultController(
     private val topicPipeline: TopicProcessorPipeline,
     private val nonTopicPipeline: NonTopicProcessorPipeline,
     private val stepMinifiedNonTopicProcessorPipeline: StepMinifiedNonTopicProcessorPipeline,
+    private val efficientStepMinifiedNonTopicProcessorPipeline: EfficientStepMinifiedNonTopicProcessorPipeline,
     private val nonFanOutPipeline: NonFanOutPipeline
 ) {
 
@@ -33,6 +31,12 @@ class DefaultController(
     @GetMapping("/pipeline/stepminifiednontopic/start")
     fun startNonTopicStepMinifiedPipeline(@RequestParam("count") publishItemCount: Int): Mono<String> {
         stepMinifiedNonTopicProcessorPipeline.start(publishItemCount)
+        return Mono.just("started")
+    }
+
+    @GetMapping("/pipeline/efficientstepminifiednontopic/start")
+    fun startEfficientNonTopicStepMinifiedPipeline(@RequestParam("count") publishItemCount: Int): Mono<String> {
+        efficientStepMinifiedNonTopicProcessorPipeline.start(publishItemCount)
         return Mono.just("started")
     }
 
