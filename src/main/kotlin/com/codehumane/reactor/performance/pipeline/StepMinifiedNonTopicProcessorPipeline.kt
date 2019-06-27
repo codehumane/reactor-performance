@@ -19,46 +19,46 @@ import kotlin.system.exitProcess
  * binary log event를 받아서 replicate item으로 변환하고 각 샤드 DB로 복제하는 일련의 파이프라인을 구성
  *
 <시작하고 두 20초 뒤>
-start tps: 11658.444444444445, detail: 11960, 10358, 10071, 12070, 12200, 12111, 11865, 12196, 12095
-step1 tps: 7108.666666666667, detail: 7137, 7119, 7100, 7109, 7054, 7172, 7117, 7081, 7089
-step2 tps: 7107.555555555556, detail: 7139, 7115, 7099, 7112, 7058, 7160, 7127, 7073, 7085
-pipeline_final_0 tps: 444.3333333333333, detail: 447, 445, 443, 443, 441, 449, 446, 442, 443
-pipeline_final_1 tps: 444.1111111111111, detail: 444, 445, 444, 445, 441, 449, 443, 443, 443
-pipeline_final_2 tps: 444.22222222222223, detail: 446, 444, 444, 445, 442, 447, 446, 441, 443
-pipeline_final_3 tps: 444.3333333333333, detail: 447, 445, 443, 444, 441, 448, 445, 445, 441
-pipeline_final_4 tps: 444.22222222222223, detail: 445, 446, 443, 445, 440, 449, 444, 443, 443
-pipeline_final_5 tps: 444.1111111111111, detail: 445, 445, 444, 444, 440, 448, 445, 443, 443
-pipeline_final_6 tps: 444.3333333333333, detail: 448, 444, 443, 445, 441, 445, 448, 442, 443
-pipeline_final_7 tps: 443.8888888888889, detail: 446, 445, 444, 443, 442, 446, 447, 440, 442
-pipeline_final_8 tps: 444.44444444444446, detail: 447, 445, 444, 444, 441, 447, 445, 445, 442
-pipeline_final_9 tps: 444.0, detail: 447, 444, 443, 442, 443, 447, 446, 442, 442
-pipeline_final_10 tps: 444.3333333333333, detail: 445, 447, 443, 446, 441, 447, 446, 442, 442
-pipeline_final_11 tps: 444.22222222222223, detail: 445, 446, 445, 443, 441, 448, 443, 446, 441
-pipeline_final_12 tps: 444.1111111111111, detail: 446, 444, 445, 443, 440, 448, 445, 443, 443
-pipeline_final_13 tps: 444.3333333333333, detail: 446, 444, 444, 445, 440, 448, 446, 443, 443
-pipeline_final_14 tps: 444.22222222222223, detail: 448, 443, 444, 444, 442, 447, 447, 442, 441
-pipeline_final_15 tps: 444.6666666666667, detail: 448, 445, 444, 444, 439, 451, 444, 441, 446
+start tps: 11666.0, detail: 11085, 11921, 11473, 11806, 11915, 11326, 11905, 11986, 11577
+step1 tps: 7120.666666666667, detail: 7097, 7085, 7115, 7142, 7190, 7121, 7048, 7161, 7127
+step2 tps: 7119.888888888889, detail: 7107, 7078, 7106, 7157, 7186, 7124, 7038, 7165, 7118
+pipeline_final_0 tps: 445.0, detail: 444, 444, 442, 448, 449, 445, 441, 449, 443
+pipeline_final_1 tps: 444.77777777777777, detail: 445, 441, 446, 446, 449, 445, 439, 448, 444
+pipeline_final_2 tps: 445.0, detail: 446, 442, 445, 446, 449, 446, 440, 449, 442
+pipeline_final_3 tps: 445.1111111111111, detail: 445, 442, 446, 446, 450, 445, 440, 447, 445
+pipeline_final_4 tps: 445.1111111111111, detail: 446, 442, 443, 448, 450, 444, 442, 447, 444
+pipeline_final_5 tps: 445.0, detail: 445, 442, 446, 447, 450, 444, 440, 447, 444
+pipeline_final_6 tps: 445.1111111111111, detail: 443, 443, 445, 448, 448, 447, 439, 447, 446
+pipeline_final_7 tps: 445.0, detail: 443, 445, 443, 447, 451, 442, 442, 447, 445
+pipeline_final_8 tps: 445.1111111111111, detail: 446, 441, 445, 445, 450, 446, 438, 449, 446
+pipeline_final_9 tps: 445.22222222222223, detail: 446, 443, 442, 448, 448, 448, 439, 448, 445
+pipeline_final_10 tps: 445.0, detail: 445, 441, 446, 446, 450, 445, 440, 447, 445
+pipeline_final_11 tps: 445.0, detail: 444, 442, 443, 448, 450, 444, 440, 447, 447
+pipeline_final_12 tps: 445.22222222222223, detail: 447, 441, 445, 447, 449, 444, 442, 447, 445
+pipeline_final_13 tps: 445.0, detail: 443, 443, 444, 446, 450, 445, 441, 449, 444
+pipeline_final_14 tps: 444.8888888888889, detail: 445, 442, 443, 448, 449, 444, 441, 449, 443
+pipeline_final_15 tps: 444.8888888888889, detail: 445, 443, 443, 448, 449, 445, 439, 448, 444
 
 <거의 끝날 무렵>
-start tps: 10833.444444444445, detail: 12061, 11711, 11804, 12095, 11776, 11579, 7350, 9310, 9815
-step1 tps: 7001.888888888889, detail: 7084, 7045, 7078, 7133, 7043, 7199, 6499, 6826, 7110
-step2 tps: 7002.222222222223, detail: 7092, 7043, 7076, 7128, 7043, 7210, 6504, 6810, 7114
-pipeline_final_0 tps: 437.77777777777777, detail: 444, 440, 440, 446, 443, 448, 408, 426, 445
-pipeline_final_1 tps: 437.55555555555554, detail: 442, 441, 443, 446, 439, 448, 408, 426, 445
-pipeline_final_2 tps: 437.44444444444446, detail: 440, 442, 440, 446, 441, 452, 406, 425, 445
-pipeline_final_3 tps: 437.77777777777777, detail: 444, 439, 442, 446, 440, 448, 411, 422, 448
-pipeline_final_4 tps: 437.55555555555554, detail: 444, 440, 442, 444, 440, 452, 406, 426, 444
-pipeline_final_5 tps: 437.6666666666667, detail: 444, 438, 443, 447, 439, 450, 407, 425, 446
-pipeline_final_6 tps: 437.44444444444446, detail: 443, 439, 441, 447, 441, 451, 405, 425, 445
-pipeline_final_7 tps: 437.6666666666667, detail: 442, 441, 443, 446, 440, 450, 406, 425, 446
-pipeline_final_8 tps: 437.77777777777777, detail: 444, 441, 441, 447, 438, 452, 406, 426, 445
-pipeline_final_9 tps: 437.77777777777777, detail: 443, 439, 442, 445, 442, 449, 408, 427, 445
-pipeline_final_10 tps: 437.8888888888889, detail: 445, 439, 442, 446, 439, 452, 407, 425, 446
-pipeline_final_11 tps: 437.6666666666667, detail: 445, 440, 440, 448, 440, 450, 408, 425, 443
-pipeline_final_12 tps: 437.77777777777777, detail: 443, 439, 442, 447, 440, 450, 407, 426, 446
-pipeline_final_13 tps: 437.8888888888889, detail: 445, 440, 441, 444, 441, 452, 405, 428, 445
-pipeline_final_14 tps: 437.44444444444446, detail: 444, 438, 444, 445, 441, 450, 407, 426, 442
-pipeline_final_15 tps: 437.3333333333333, detail: 443, 441, 440, 447, 439, 450, 407, 427, 442
+start tps: 11641.888888888889, detail: 11908, 11847, 11532, 11386, 11380, 11305, 11811, 11825, 11783
+step1 tps: 7111.333333333333, detail: 7167, 7095, 7104, 7084, 7094, 7162, 7083, 7155, 7058
+step2 tps: 7111.333333333333, detail: 7157, 7103, 7105, 7082, 7100, 7146, 7087, 7149, 7073
+pipeline_final_0 tps: 444.44444444444446, detail: 446, 444, 444, 445, 443, 448, 443, 444, 443
+pipeline_final_1 tps: 444.22222222222223, detail: 446, 445, 443, 443, 446, 445, 442, 445, 443
+pipeline_final_2 tps: 444.6666666666667, detail: 447, 446, 445, 442, 443, 446, 443, 447, 443
+pipeline_final_3 tps: 444.6666666666667, detail: 446, 445, 445, 444, 444, 446, 441, 448, 443
+pipeline_final_4 tps: 444.3333333333333, detail: 447, 442, 447, 441, 446, 444, 444, 445, 443
+pipeline_final_5 tps: 444.44444444444446, detail: 448, 442, 443, 444, 445, 446, 444, 446, 442
+pipeline_final_6 tps: 444.22222222222223, detail: 445, 444, 447, 441, 446, 445, 443, 445, 442
+pipeline_final_7 tps: 444.55555555555554, detail: 449, 443, 444, 443, 444, 445, 443, 450, 440
+pipeline_final_8 tps: 444.44444444444446, detail: 448, 444, 444, 442, 446, 445, 443, 447, 441
+pipeline_final_9 tps: 444.77777777777777, detail: 447, 446, 443, 443, 445, 445, 443, 449, 442
+pipeline_final_10 tps: 444.3333333333333, detail: 448, 444, 443, 443, 445, 444, 445, 446, 441
+pipeline_final_11 tps: 444.44444444444446, detail: 446, 445, 443, 443, 444, 445, 441, 450, 443
+pipeline_final_12 tps: 444.44444444444446, detail: 447, 443, 444, 442, 446, 445, 444, 446, 443
+pipeline_final_13 tps: 444.44444444444446, detail: 448, 441, 446, 442, 445, 447, 442, 447, 442
+pipeline_final_14 tps: 444.55555555555554, detail: 447, 445, 444, 444, 444, 446, 443, 447, 441
+pipeline_final_15 tps: 444.6666666666667, detail: 449, 442, 447, 440, 446, 445, 442, 447, 444
  */
 @Service
 class StepMinifiedNonTopicProcessorPipeline(private val meterRegistry: PrometheusMeterRegistry) {
@@ -168,12 +168,6 @@ class StepMinifiedNonTopicProcessorPipeline(private val meterRegistry: Prometheu
 
         }.subscribeOn(intermediateTransformScheduler)
 
-    }
-
-    private fun pass2Processor(source: Step2Item): Mono<Step2Item> {
-        return Mono.create<Step2Item> {
-            it.success(processor.execute(source))
-        }.subscribeOn(intermediateTransformScheduler)
     }
 
     private fun generateFinalItem(source: Step2Item, index: Int): Mono<FinalItem> {
