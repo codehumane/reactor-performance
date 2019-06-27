@@ -18,6 +18,12 @@ import kotlin.system.exitProcess
 /**
  * binary log event를 받아서 replicate item으로 변환하고 각 샤드 DB로 복제하는 일련의 파이프라인을 구성
  *
+ * * <NonTopicProcessorPipeline에서 바꾼 것은>
+ * - 1단계 2단계를 통합함
+ *
+ * <결론>
+ * 미미하게나마 성능이 개선됨!
+ *
 <시작하고 두 20초 뒤>
 start tps: 11666.0, detail: 11085, 11921, 11473, 11806, 11915, 11326, 11905, 11986, 11577
 step1 tps: 7120.666666666667, detail: 7097, 7085, 7115, 7142, 7190, 7121, 7048, 7161, 7127

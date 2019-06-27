@@ -18,7 +18,11 @@ import kotlin.system.exitProcess
 /**
  * binary log event를 받아서 replicate item으로 변환하고 각 샤드 DB로 복제하는 일련의 파이프라인을 구성
  *
+ * <TopicProcessorPipeline에서 바꾼 것은>
  * - topic processor가 느리다고 판단하여 직접 (fan out) processor 작성한 버전
+ *
+ * <결론>
+ * - 훨씬 나아짐!!
  *
 <1,000,000건 실행 후, 시작하고 두 20초 뒤>
 start tps: 11728.0, detail: 11733, 11948, 11431, 11331, 11933, 11932, 11808, 11780, 11656
