@@ -13,13 +13,6 @@ Accept: application/json
 
 
 
-### 파이프라인 실행 (topic x & 직접 작성한 processor & filter를 sink#next 호출 전에 수행 - 파이프라인의 실행이 꽤 큰 비용이라고 판단됨)
-
-GET http://localhost:8080/pipeline/efficientnontopic/start?count=30
-Accept: application/json
-
-
-
 ### 파이프라인 실행 (topic x & 직접 작성한 processor & 1단계 2단계를 나누지 않고 한 번에 실행)
 
 GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1000000

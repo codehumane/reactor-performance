@@ -1,0 +1,348 @@
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T095107.200.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T095007.200.json
+
+###
+
+GET http://localhost:8080/pipeline/efficientstepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T093456.200.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T092609.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T092315.200.json
+
+###
+
+GET http://localhost:8080/pipeline/topic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T091955.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-27T091842.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-27T091733.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=30
+Accept: application/json
+
+<> 2019-06-27T091632.200.json
+
+###
+
+GET http://localhost:8080/pipeline/efficientnontopic/start?count=30
+Accept: application/json
+
+<> 2019-06-27T091453.200.json
+
+###
+
+GET http://localhost:8080/pipeline/efficiendnontopic/start?count=30
+Accept: application/json
+
+<> 2019-06-27T091443.404.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T090720.200.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T090559.200.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=30
+Accept: application/json
+
+<> 2019-06-27T090501.200.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=10
+Accept: application/json
+
+<> 2019-06-27T090437.200.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=10
+Accept: application/json
+
+<> 2019-06-27T090418.200.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1
+Accept: application/json
+
+<> 2019-06-27T090348.200.json
+
+###
+
+GET http://localhost:8080/pipeline/efficientstepminifiednontopic/start?count=1
+Accept: application/json
+
+<> 2019-06-27T090206.200.json
+
+###
+
+GET http://localhost:8080/pipeline/efficientstepminifiednontopic/start?count=1
+Accept: application/json
+
+<> 2019-06-27T090019.200.json
+
+###
+
+GET http://localhost:8080/pipeline/efficientstepminifiednontopic/start?count=100
+Accept: application/json
+
+<> 2019-06-27T085831.200.json
+
+###
+
+GET http://localhost:8080/pipeline/efficientstepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T085733.200.json
+
+###
+
+GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T083804.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nonfanout/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T082421.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-27T082025.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-26T053819.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T053700.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100
+Accept: application/json
+
+<> 2019-06-26T053614.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nonfanout/start?count=1000000
+Accept: application/json
+
+<> 2019-06-26T052629.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nonfanout/start?count=1000000
+Accept: application/json
+
+<> 2019-06-26T052600.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nonfanout/start?count=100
+Accept: application/json
+
+<> 2019-06-26T052520.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nonfanout/start?count=100
+Accept: application/json
+
+###
+
+GET http://localhost:8080/pipeline/nonfanout/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T052308.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T051215.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T050945.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T050704.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T050450.200.json
+
+###
+
+GET http://localhost:8080/pipeline/topic/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T050406.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T045911.200.json
+
+###
+
+GET http://localhost:8080/pipeline/nontopic/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T045719.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T034538.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T034459.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T034330.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T034015.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T033937.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T033846.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T033559.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T033526.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T033224.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T033151.200.json
+
+###
+
+GET http://localhost:8080/pipeline/start?count=100000
+Accept: application/json
+
+<> 2019-06-26T033115.200.json
+
+###
+
