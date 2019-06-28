@@ -20,6 +20,13 @@ Accept: application/json
 
 
 
+### 파이프라인 실행 (topic x & 직접 작성한 processor & 1단계 2단계를 나누지 않고 한 번에 실행 & 순서 보장 제약 추가)
+
+GET http://localhost:8080/pipeline/orderingstepminifiednontopic/start?count=1000000
+Accept: application/json
+
+
+
 ### 파이프라인 실행 (topic x & 직접 작성한 processor & 1단계 2단계를 나누지 않고 한 번에 실행 & 불필요한 sink#next 호출 제거)
 
 GET http://localhost:8080/pipeline/efficientstepminifiednontopic/start?count=1000000
@@ -32,7 +39,6 @@ Accept: application/json
 GET http://localhost:8080/pipeline/nonfanout/start?count=1000000
 Accept: application/json
 
-###
 
 
 

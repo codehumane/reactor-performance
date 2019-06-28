@@ -13,6 +13,7 @@ class DefaultController(
     private val nonTopicPipeline: NonTopicProcessorPipeline,
     private val stepMinifiedNonTopicProcessorPipeline: StepMinifiedNonTopicProcessorPipeline,
     private val efficientStepMinifiedNonTopicProcessorPipeline: EfficientStepMinifiedNonTopicProcessorPipeline,
+    private val orderingStepMinifiedNonTopicProcessorPipeline: OrderingStepMinifiedNonTopicProcessorPipeline,
     private val nonFanOutPipeline: NonFanOutPipeline
 ) {
 
@@ -31,6 +32,12 @@ class DefaultController(
     @GetMapping("/pipeline/stepminifiednontopic/start")
     fun startNonTopicStepMinifiedPipeline(@RequestParam("count") publishItemCount: Int): Mono<String> {
         stepMinifiedNonTopicProcessorPipeline.start(publishItemCount)
+        return Mono.just("started")
+    }
+
+    @GetMapping("/pipeline/orderingstepminifiednontopic/start")
+    fun startOrderingNonTopicStepMinifiedPipeline(@RequestParam("count") publishItemCount: Int): Mono<String> {
+        orderingStepMinifiedNonTopicProcessorPipeline.start(publishItemCount)
         return Mono.just("started")
     }
 
