@@ -1,3 +1,10 @@
+GET http://localhost:8080/pipeline/orderingstepminifiednontopic/start?count=1000000
+Accept: application/json
+
+<> 2019-06-29T060114.200.json
+
+###
+
 GET http://localhost:8080/pipeline/stepminifiednontopic/start?count=1000000
 Accept: application/json
 
@@ -336,13 +343,6 @@ GET http://localhost:8080/pipeline/start?count=100000
 Accept: application/json
 
 <> 2019-06-26T033151.200.json
-
-###
-
-GET http://localhost:8080/pipeline/start?count=100000
-Accept: application/json
-
-<> 2019-06-26T033115.200.json
 
 ###
 
