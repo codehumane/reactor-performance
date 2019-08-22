@@ -41,9 +41,16 @@ Accept: application/json
 
 
 
-### 파이프라인 실행 (window)
+### 파이프라인 실행 (groupby)
 
 GET http://localhost:8080/pipeline/groupby/start?count=1000000
+Accept: application/json
+
+
+
+### 파이프라인 실행 (groupby - advanced)
+
+GET http://localhost:8080/pipeline/advanced/groupby/start?count=1000000
 Accept: application/json
 
 ###

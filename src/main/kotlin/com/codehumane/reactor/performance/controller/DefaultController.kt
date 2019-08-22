@@ -1,6 +1,7 @@
 package com.codehumane.reactor.performance.controller
 
 import com.codehumane.reactor.performance.pipeline.*
+import com.codehumane.reactor.performance.pipeline.advanced.GroupByPipelineAdvanced
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -15,7 +16,8 @@ class DefaultController(
     private val efficientStepMinifiedNonTopicProcessorPipeline: EfficientStepMinifiedNonTopicProcessorPipeline,
     private val orderingStepMinifiedNonTopicProcessorPipeline: OrderingStepMinifiedNonTopicProcessorPipeline,
     private val nonFanOutPipeline: NonFanOutPipeline,
-    private val groupByPipeline: GroupByPipeline
+    private val groupByPipeline: GroupByPipeline,
+    private val groupByPipelineAdvanced: GroupByPipelineAdvanced
 ) {
 
     @GetMapping("/pipeline/topic/start")
@@ -57,6 +59,12 @@ class DefaultController(
     @GetMapping("/pipeline/groupby/start")
     fun windowPipeline(@RequestParam("count") publishItemCount: Int): Mono<String> {
         groupByPipeline.start(publishItemCount)
+        return Mono.just("started")
+    }
+
+    @GetMapping("/pipeline/advanced/groupby/start")
+    fun windowPipelineAdvanced(@RequestParam("count") publishItemCount: Int): Mono<String> {
+        groupByPipelineAdvanced.start(publishItemCount)
         return Mono.just("started")
     }
 
