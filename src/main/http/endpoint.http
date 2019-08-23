@@ -48,11 +48,19 @@ Accept: application/json
 
 
 
-### 파이프라인 실행 (groupby - advanced)
+### 파이프라인 실행 (groupby & runnable - advanced)
 
-GET http://localhost:8080/pipeline/advanced/groupby/start?count=1000000
+GET http://localhost:8080/pipeline/advanced/groupbyandrunnable/start?count=1000000
+Accept: application/json
+
+
+
+### 파이프라인 실행 (groupby & groupby - advanced)
+
+GET http://localhost:8080/pipeline/advanced/groupbyandgroupby/start?count=1000000
 Accept: application/json
 
 ###
+
 
 
