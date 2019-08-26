@@ -60,7 +60,13 @@ Accept: application/json
 GET http://localhost:8080/pipeline/advanced/groupbyandgroupby/start?count=1000000
 Accept: application/json
 
-###
 
+
+### 파이프라인 실행 (publish & publish - advanced)
+
+GET http://localhost:8080/pipeline/advanced/publishandpublish/start?count=1000000
+Accept: application/json
+
+###
 
 

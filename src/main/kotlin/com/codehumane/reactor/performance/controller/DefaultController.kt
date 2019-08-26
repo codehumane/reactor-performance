@@ -3,6 +3,7 @@ package com.codehumane.reactor.performance.controller
 import com.codehumane.reactor.performance.pipeline.*
 import com.codehumane.reactor.performance.pipeline.advanced.GroupByAndGroupByPipeline
 import com.codehumane.reactor.performance.pipeline.advanced.GroupByAndRunnablePipeline
+import com.codehumane.reactor.performance.pipeline.advanced.PublishAndPublishPipeline
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -19,7 +20,8 @@ class DefaultController(
     private val nonFanOutPipeline: NonFanOutPipeline,
     private val groupByPipeline: GroupByPipeline,
     private val groupByAndRunnablePipeline: GroupByAndRunnablePipeline,
-    private val groupByAndGroupByPipeline: GroupByAndGroupByPipeline
+    private val groupByAndGroupByPipeline: GroupByAndGroupByPipeline,
+    private val publishAndPublishPipeline: PublishAndPublishPipeline
 ) {
 
     @GetMapping("/pipeline/topic/start")
@@ -73,6 +75,12 @@ class DefaultController(
     @GetMapping("/pipeline/advanced/groupbyandgroupby/start")
     fun groupByAndGroupByPipeline(@RequestParam("count") publishItemCount: Int): Mono<String> {
         groupByAndGroupByPipeline.start(publishItemCount)
+        return Mono.just("started")
+    }
+
+    @GetMapping("/pipeline/advanced/publishandpublish/start")
+    fun publishAndPublishPipeline(@RequestParam("count") publishItemCount: Int): Mono<String> {
+        publishAndPublishPipeline.start(publishItemCount)
         return Mono.just("started")
     }
 
