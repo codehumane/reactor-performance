@@ -25,25 +25,25 @@ import kotlin.system.exitProcess
  *
 <시작하고 두 20초 뒤>
 
-start tps: 10381.222222222223, detail: 10532, 9930, 10331, 10425, 10449, 10462, 10804, 10262, 10236
-step1 tps: 10381.222222222223, detail: 10532, 9930, 10331, 10425, 10449, 10462, 10804, 10262, 10236
-step2 tps: 10381.222222222223, detail: 10532, 9930, 10331, 10424, 10450, 10462, 10804, 10262, 10236
-pipeline_final_0 tps: 648.6666666666666, detail: 658, 620, 646, 651, 653, 654, 676, 641, 639
-pipeline_final_1 tps: 648.8888888888889, detail: 659, 620, 645, 652, 653, 654, 676, 640, 641
-pipeline_final_2 tps: 648.8888888888889, detail: 658, 621, 646, 651, 653, 655, 675, 642, 639
-pipeline_final_3 tps: 648.7777777777778, detail: 658, 621, 645, 652, 652, 655, 674, 641, 641
-pipeline_final_4 tps: 649.0, detail: 659, 621, 645, 652, 653, 654, 675, 641, 641
-pipeline_final_5 tps: 648.7777777777778, detail: 658, 621, 646, 650, 654, 654, 676, 641, 639
-pipeline_final_6 tps: 648.8888888888889, detail: 659, 621, 645, 652, 653, 655, 673, 643, 639
-pipeline_final_7 tps: 648.7777777777778, detail: 658, 621, 645, 652, 653, 655, 674, 642, 639
-pipeline_final_8 tps: 649.0, detail: 658, 622, 645, 653, 652, 653, 676, 641, 641
-pipeline_final_9 tps: 649.0, detail: 658, 622, 645, 651, 654, 654, 676, 641, 640
-pipeline_final_10 tps: 648.7777777777778, detail: 658, 621, 645, 652, 652, 655, 675, 642, 639
-pipeline_final_11 tps: 648.8888888888889, detail: 660, 619, 646, 652, 653, 653, 676, 641, 640
-pipeline_final_12 tps: 648.6666666666666, detail: 657, 622, 644, 653, 653, 653, 676, 641, 639
-pipeline_final_13 tps: 648.8888888888889, detail: 659, 621, 646, 650, 653, 655, 674, 642, 640
-pipeline_final_14 tps: 648.7777777777778, detail: 658, 621, 645, 653, 653, 653, 676, 641, 639
-pipeline_final_15 tps: 649.0, detail: 659, 620, 647, 651, 653, 654, 675, 642, 640
+start tps: 19374.0, detail: 18991, 19702, 19394, 19553, 19414, 19206, 19483, 19293, 19330
+step1 tps: 19374.0, detail: 18991, 19702, 19394, 19553, 19414, 19206, 19483, 19293, 19330
+step2 tps: 19374.555555555555, detail: 18984, 19712, 19389, 19557, 19413, 19197, 19491, 19288, 19340
+pipeline_final_0 tps: 1211.5555555555557, detail: 1185, 1231, 1218, 1222, 1213, 1196, 1218, 1206, 1215
+pipeline_final_1 tps: 1211.0, detail: 1181, 1227, 1224, 1220, 1210, 1199, 1219, 1203, 1216
+pipeline_final_2 tps: 1211.3333333333333, detail: 1189, 1228, 1219, 1222, 1211, 1198, 1224, 1206, 1205
+pipeline_final_3 tps: 1211.3333333333333, detail: 1185, 1232, 1209, 1224, 1217, 1193, 1221, 1210, 1211
+pipeline_final_4 tps: 1210.4444444444443, detail: 1192, 1223, 1210, 1226, 1217, 1193, 1223, 1209, 1201
+pipeline_final_5 tps: 1211.0, detail: 1187, 1233, 1214, 1227, 1206, 1195, 1228, 1193, 1216
+pipeline_final_6 tps: 1211.0, detail: 1188, 1231, 1204, 1233, 1208, 1202, 1218, 1204, 1211
+pipeline_final_7 tps: 1211.3333333333333, detail: 1188, 1231, 1213, 1223, 1210, 1203, 1214, 1209, 1211
+pipeline_final_8 tps: 1211.7777777777778, detail: 1193, 1231, 1202, 1232, 1211, 1199, 1217, 1212, 1209
+pipeline_final_9 tps: 1210.888888888889, detail: 1195, 1220, 1215, 1228, 1211, 1198, 1219, 1206, 1206
+pipeline_final_10 tps: 1211.5555555555557, detail: 1186, 1236, 1206, 1227, 1204, 1191, 1236, 1206, 1212
+pipeline_final_11 tps: 1211.7777777777778, detail: 1185, 1244, 1203, 1226, 1212, 1200, 1220, 1204, 1212
+pipeline_final_12 tps: 1210.6666666666667, detail: 1182, 1234, 1210, 1227, 1212, 1192, 1229, 1199, 1211
+pipeline_final_13 tps: 1211.6666666666667, detail: 1197, 1225, 1215, 1228, 1208, 1200, 1215, 1211, 1206
+pipeline_final_14 tps: 1211.3333333333333, detail: 1192, 1225, 1214, 1225, 1212, 1196, 1218, 1204, 1216
+pipeline_final_15 tps: 1210.6666666666667, detail: 1184, 1231, 1212, 1227, 1210, 1199, 1214, 1207, 1212
 
 <거의 끝날 무렵>
 마찬가지
@@ -56,6 +56,10 @@ class GroupByAndGroupByPipeline(private val meterRegistry: PrometheusMeterRegist
     private val intermediateTransformThreadCoreSize = 128
     private val topicSubscriberCount = 16
     private val topicSubscriberChildrenCount = 8
+    private val startItemDelay = 500
+    private val step1ItemDelay = 1
+    private val step2ItemDelay = 1
+    private val finalItemDelay = 2
 
     private val itemGenerator = StartItemGenerator()
     private val step1Generator = Step1ItemGenerator()
@@ -134,7 +138,7 @@ class GroupByAndGroupByPipeline(private val meterRegistry: PrometheusMeterRegist
 
             (0 until count).forEach { index ->
                 startMetricTimer.record {
-                    sink.next(itemGenerator.withDelayCount(1_000))
+                    sink.next(itemGenerator.withDelayCount(startItemDelay))
                 }
 
                 if (index % 1000 == 0) {
@@ -150,11 +154,11 @@ class GroupByAndGroupByPipeline(private val meterRegistry: PrometheusMeterRegist
         return Mono.create<Step2Item> {
 
             val step1Item = step1MetricTimer.record<Step1Item> {
-                step1Generator.withDelayMillis(source, 1)
+                step1Generator.withDelayMillis(source, step1ItemDelay)
             }
 
             step2MetricTimer.record {
-                val step2Item = step2Generator.withDelayMillis(step1Item, 1)
+                val step2Item = step2Generator.withDelayMillis(step1Item, step2ItemDelay)
                 it.success(step2Item)
             }
 
@@ -172,7 +176,7 @@ class GroupByAndGroupByPipeline(private val meterRegistry: PrometheusMeterRegist
             val timer = finalMetricTimers[grouped.key()!!]
 
             timer.record {
-                val generated = generator.withDelayMillis(it, 3)
+                val generated = generator.withDelayMillis(it, finalItemDelay)
 //                log.info("generated(${it.value}-${grouped.key()}-${groupedAndGrouped.key()}): $generated")
             }
 

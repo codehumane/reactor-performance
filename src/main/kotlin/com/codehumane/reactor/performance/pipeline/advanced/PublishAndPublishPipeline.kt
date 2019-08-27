@@ -55,6 +55,10 @@ class PublishAndPublishPipeline(private val meterRegistry: PrometheusMeterRegist
     private val intermediateTransformThreadCoreSize = 128
     private val topicSubscriberCount = 16
     private val topicSubscriberChildrenCount = 8
+    private val startItemDelay = 500
+    private val step1ItemDelay = 1
+    private val step2ItemDelay = 1
+    private val finalItemDelay = 2
 
     private val itemGenerator = StartItemGenerator()
     private val step1Generator = Step1ItemGenerator()
@@ -131,7 +135,7 @@ class PublishAndPublishPipeline(private val meterRegistry: PrometheusMeterRegist
 
             (0 until count).forEach { index ->
                 startMetricTimer.record {
-                    sink.next(itemGenerator.withDelayCount(1_000))
+                    sink.next(itemGenerator.withDelayCount(startItemDelay))
                 }
 
                 if (index % 1000 == 0) {
@@ -147,11 +151,11 @@ class PublishAndPublishPipeline(private val meterRegistry: PrometheusMeterRegist
         return Mono.create<Step2Item> {
 
             val step1Item = step1MetricTimer.record<Step1Item> {
-                step1Generator.withDelayMillis(source, 1)
+                step1Generator.withDelayMillis(source, step1ItemDelay)
             }
 
             step2MetricTimer.record {
-                val step2Item = step2Generator.withDelayMillis(step1Item, 1)
+                val step2Item = step2Generator.withDelayMillis(step1Item, step2ItemDelay)
                 it.success(step2Item)
             }
 
@@ -165,7 +169,7 @@ class PublishAndPublishPipeline(private val meterRegistry: PrometheusMeterRegist
             val timer = finalMetricTimers[parentIndex]
 
             timer.record {
-                val generated = generator.withDelayMillis(it, 3)
+                val generated = generator.withDelayMillis(it, finalItemDelay)
 //                log.info("generated(${it.value}-$parentIndex-$childIndex): $generated")
             }
 
